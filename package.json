@@ -1,8 +1,10 @@
 {
   "name": "bmtatoo",
+  "homepage": "https://reemet-paabo.github.io/bmtatoo",
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "predeploy": "next build",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
