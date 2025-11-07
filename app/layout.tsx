@@ -5,6 +5,7 @@ import type { Metadata } from "next";
  * __root/app/components/ || ./components/
  */
 import Header from "./components/Header";
+import Footer from "./components/Footer";
 
 /**
  * Global Stylesheet
@@ -21,9 +22,12 @@ export default function RootLayout({
 }: Readonly <{ children: React.ReactNode; }>) {
   return (
     <html lang="en">
-      <body className="antialiased">
+      <body className="antialiased flex flex-col min-h-screen">
           <Header />
+          <main className="flex-grow">
           {children}
+          </main>
+          <Footer />
       </body>
     </html>
   )
