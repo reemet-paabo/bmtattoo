@@ -59,6 +59,25 @@ export default function ContactPage() {
               placeholder="+372 1234 5678"/>
           </div>
           {/** Something about what kind of tattoo request? Cover-up, Re-ink,New small, sleeve etc..? before message */}
+           <div>
+            <label htmlFor="option" className="block text-sm font-medium mb-2">
+              Selection
+            </label>
+            <select
+              id="option"
+              name="option"
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-zinc-900 focus:border-transparent outline-none transition"
+            >
+              <option value="">Select a option</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+              <option value="7">Other</option>
+            </select>
+          </div>
 
           { /** Message field */}
 
