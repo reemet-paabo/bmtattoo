@@ -1,6 +1,20 @@
+
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: "Contact | BM Tattoo Studio - Book Your Appoinment Today",
+  description: "Contact BM Tattoo Studio in Tallinn to book your custom tattoo appointment. Located at 123 StreetName. Call +372 1234 5678 or fill out the contact form.",
+  openGraph: {
+    title: "Contact | BM Tattoo Studio",
+    description: "Get in touch and book your appointment.",
+    url: "https://bmtattoo.vercel.app/contact"
+
+  }
+}
+
 /**
- * 
- * Placeholder with no functionality.
+ *  @todo: api route for inbox
+ * Placeholder Component.
  * Later steps: Convert to Client Component
  * Handle form submission when API route exists
  * Error handling
@@ -58,7 +72,7 @@ export default function ContactPage() {
               className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-zinc-900 focus:border-transparent outline-none transition"
               placeholder="+372 1234 5678"/>
           </div>
-          {/** Something about what kind of tattoo request? Cover-up, Re-ink,New small, sleeve etc..? before message */}
+          {/** @TODO: Something about what kind of tattoo request? Cover-up, Re-ink,New small, sleeve etc..? before message */}
            <div>
             <label htmlFor="option" className="block text-sm font-medium mb-2">
               Selection

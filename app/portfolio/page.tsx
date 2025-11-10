@@ -1,7 +1,18 @@
-import PortfolioGrid from '../components/PortfolioGrid'
+import type { Metadata } from 'next';
+import PortfolioGrid from '../components/PortfolioGrid';
+
+export const metadata: Metadata = {
+  title: "Portfolio | BM Tattoo Studio - Created Works Gallery",
+  description: "Browse the porftolio of custom created tattoos in all sizes and styles",
+  openGraph: {
+    title: "Portfolio | BM Tattoo Studio",
+    description: "Browse portfolio of custom tattoos and artistic designs",
+    url: "https://bmtattoo.vercel.app/portfolio" /** @todo: production domain  */
+  }
+}
 
 export default function PortfolioPage() {
-  // Dummy/Placeholder Data. Will come from CMS later 
+  /** @todo: Images from storage using api route. Using placeholder/ dummydata right now */
   const tattoos = [
     {
       id: 1,
@@ -51,7 +62,7 @@ export default function PortfolioPage() {
       <div className="mb-12">
         <h1 className="text-3xl md:text-4xl font-bold mb-4">Portfolio</h1>
         <p className="text-gray-600 text-lg">
-          Browse my collection of custom tattoo work
+          Browse the collection of custom tattoo work
         </p>
       </div>
 

@@ -1,5 +1,7 @@
 import Link from 'next/link';
-
+/**
+ * @todo: googleapis/map integration. Correct hours and number & social links
+ */
 export default function Footer() {
     return (
         <footer className="bg-zinc-900 text-white">

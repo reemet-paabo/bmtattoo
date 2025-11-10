@@ -83,7 +83,10 @@ export default function PortfolioGrid({ tattoos }: PortfolioGridProps) {
     )
 
 }
-/** For real images
+/** 
+ * @todo: api route and image storage
+ * 
+ * For real images
  * <Image
     src={tattoo.image}
     alt={tattoo.title}

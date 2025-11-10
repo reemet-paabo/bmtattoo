@@ -1,4 +1,36 @@
+import type { Metadata } from 'next';
 import Link from 'next/link';
+
+export const metadata: Metadata = {
+  title: "BM Tattoo Studio - Custom Tattoos in Kristiine Tallinn, Estonia",
+  description: "Professional custom tattoo artist based in Tallinn. Tratitional, realism, geometric, blackwork, black & gray, Japanese, ..., all styles accepted with professional detail oriented mindset and skill set",
+  keywords: "tattoo, tattoo artist, Tallinn tattoo, Estonia tattoo, custom tattoo, tattoo shop, tratitional tattoo, realism tattoo, professional tattoo, English speaking artist, Estonian speaking artist, creative custom tattoos, coverups, Roland Paabo, Rolts Paabo, Paabo, Bloody Mess Tattoo, Dicksquid tattoo",
+  openGraph: {
+    title: "BM Tattoo Studio - Custom Tattoos in Tallinn",  
+    description: "Professional custom renowned artist in Tallinn, known for exceptional craftmanship and color work.",
+    url: "https://bmtattoo.vercel.app", /** @todo: production domain required */
+    siteName: "BM Tattoo Studio",
+    images: [
+      {
+        url: "https://bmtattoo.vercel.app/og-image.jpg", /** @todo: logos and images of studio, brand */
+        width: 1200,
+        height: 630,
+        alt: "BM Tattoo Studio",
+      }
+    ],
+    locale: "en_US", // EE?
+    type: "website"
+  },
+
+  /** twitter?  @todo: will use twitter? */ 
+
+  // twitter: { 
+  //   card: "summary_large_image",
+  //   title: "BM Tattoo Studio - Custom Tattoos in Tallinn",
+  //   description: "Professional custom tattoo artist in Tallinn. Book your appointment today.",
+  //   images: ["https://bmtattoo.vercel.app/og-image.jps"]
+  // },
+};
 
 export default function Home() {
   return (
@@ -9,7 +41,7 @@ export default function Home() {
             Welcome to BM(read DickSquid) Tattoo Studio
           </h1>
           <p className="text-lg md:text-xl text-gray-600 mb-6 md:mb-8">
-            Tattoos, artistic and creative designs by [MINU VEND]
+            Tattoos, artistic and creative designs by renown artist Roland "Rolts" Paabo
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link href="/portfolio"

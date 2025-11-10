@@ -23,7 +23,7 @@ export default function Header() {
                   BM Tattoo
                 </Link>
 
-                {/** Desktop Navigation - Hitten on mobile */}
+                {/** Desktop Navigation - Hidden on mobile */}
                 <ul className="hidden md:flex gap-8">
                   <li>
                     <Link href="/" className="hover:text-gray-300 transition">

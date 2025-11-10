@@ -1,3 +1,15 @@
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: "About | BM Tattoo Studio - Meet the Artist",
+  description: "Learn about Roland \"Rolts\" Paabo, renowned artist in Tallinn with over 20 years of experience. Creative imagination brought to life through a precise and steady hand",
+  openGraph: {
+    title: "About | BM Tattoo Studio",
+    description: "Learn about the artist and the studio in Tallinn",
+    url: "https://bmtattoo.vercel.app/about"
+  }
+};
+
 export default function AboutPage() {
   return (
     <main className="container mx-auto px-4 py-12 md:py-20">
@@ -93,7 +105,7 @@ export default function AboutPage() {
             <div className="text-gray-600 mb-2">[Year] - Present</div>
             <p className="text-gray-700">
               Operating BM Tattoo Studio in Tallinn, creating custom tattoos and building 
-              lasting relationships with clients.
+              lasting relationships with clients. 
             </p>
           </div>
         </div>
