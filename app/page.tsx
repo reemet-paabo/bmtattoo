@@ -28,7 +28,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "BM Tattoo Studio - Custom Tattoos in Tallinn",
     description: "Professional custom tattoo artist in Tallinn. Book your appointment today.",
-    images: ["https://bmtattoo.vercel.app/og-image.jps"]
+    images: ["https://bmtattoo.vercel.app/og-image.jpg"]
   },
 };
 
