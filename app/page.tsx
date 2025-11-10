@@ -24,12 +24,12 @@ export const metadata: Metadata = {
 
   /** twitter?  @todo: will use twitter? */ 
 
-  // twitter: { 
-  //   card: "summary_large_image",
-  //   title: "BM Tattoo Studio - Custom Tattoos in Tallinn",
-  //   description: "Professional custom tattoo artist in Tallinn. Book your appointment today.",
-  //   images: ["https://bmtattoo.vercel.app/og-image.jps"]
-  // },
+  twitter: { 
+    card: "summary_large_image",
+    title: "BM Tattoo Studio - Custom Tattoos in Tallinn",
+    description: "Professional custom tattoo artist in Tallinn. Book your appointment today.",
+    images: ["https://bmtattoo.vercel.app/og-image.jps"]
+  },
 };
 
 export default function Home() {
