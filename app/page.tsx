@@ -32,6 +32,39 @@ export const metadata: Metadata = {
   },
 };
 
+
+/**
+ * 
+ * @todo: openGraph image
+ * **Required dimensions for og:image:**
+- **Width: 1200px**
+- **Height: 630px**
+- **Aspect ratio: 1.91:1**
+- **Format: JPG or PNG**
+- **Max file size: ~8MB** (but keep it under 300KB for fast loading)
+ */
+
+
+/** OG Images Guide:
+ * **Good OG images typically include:**
+- Studio name/logo
+- Maybe a tattoo sample or artist photo
+- Clean, professional design
+- High contrast (readable at small sizes)
+- Not too much text
+
+**Example layout ideas:**
+```
+┌─────────────────────────────┐
+│                             │
+│      BM TATTOO STUDIO       │
+│                             │
+│   [Tattoo image/artwork]    │
+│                             │
+│  Custom Tattoos • Tallinn   │
+│                             │
+└─────────────────────────────┘
+ */
 export default function Home() {
   return (
     <main>
