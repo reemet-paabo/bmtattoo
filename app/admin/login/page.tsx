@@ -18,18 +18,32 @@ export default function AdminLoginPage() {
         setError('');
         setIsLoading(true);
 
-        /** 
-         * @todo: authenticate
-         */
+        try {
+            const response = await fetch('/api/auth/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(formData),
+            });
 
-        console.log('login attempt: ', formData.username);
+            const data = await response.json();
+            if (response.ok) {
+                // Login successful --> redirecting to admin dashboard.
 
-        // Simulated API call
+                router.push('/admin/dashboard');
+                router.refresh();
+            } else {
+                // Login failed. Show error.
 
-        setTimeout(() => {
+                setError(data.error || 'Login failed!');
+            }
+        } catch (error) {
+            console.error('Login error:', error);
+            setError('An error occured. Please try again.')
+        } finally {
             setIsLoading(false);
-            setError('Auth not implemented yet');
-        }, 1000);
+        }
     };
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
