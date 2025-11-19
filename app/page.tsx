@@ -1,5 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import { getFeaturedTattoos } from '@/lib/sanity-queries';
+import { urlFor } from '@/lib/sanity-client';
 
 export const metadata: Metadata = {
   title: "BM Tattoo Studio - Custom Tattoos in Kristiine Tallinn, Estonia",
@@ -65,7 +67,12 @@ export const metadata: Metadata = {
 │                             │
 └─────────────────────────────┘
  */
-export default function Home() {
+
+export const revalidate = 60; // Revalidate every 60 seconds
+
+
+export default async function Home() {
+  const featuredTattoos = await getFeaturedTattoos();
   return (
     <main>
       <section className="container mx-auto px-4 py-12 md:py-20">
@@ -96,15 +103,38 @@ export default function Home() {
           <h2 className="text-2xl md:text-3xl font-bold text-center mb-8 md:mb-12">
             Recent Work
           </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8">
-            { /** placeholder for recent tattoos */}
+          
+          {featuredTattoos.length === 0 ? (
+            <div className="text-center text-gray-500">
+              <p>No featured work uploaded yet... Waiting for uploads!</p>
+            </div>
+          ): (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg-grid-cols-3 gap-4 md:gap-8">
+              {featuredTattoos.map((tattoo) => (
+                <Link 
+                  key={tattoo._id}
+                  href="/portfolio"
+                  className="group relative aspect-square overflow-hidden rounded-lg bg-gray-300"
+                  >
+                    <img 
+                      src={urlFor(tattoo.image).width(800).height(800).url()}
+                      alt={tattoo.title}
+                      className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
+                    />
+                    {/** Permanent subtle dark overlay */}
+                    <div className="absolut inset-0 bg-black bg-opacity-10 pointer-events-none"/>
 
-            {[1,2,3].map((i) => (
-              <div key={i} className="bg-gray-300 aspect-square rounded-lg">
-                {/** Images will go here */}
-              </div>
-            ))}
-          </div>
+                    {/** Hover overlay */}
+                    <div className="absolute inset-0 bg-transparent group-hover:bg-black group-hover:bg-opacity-60 transition-all duration-300 flex items-end p-4">
+                      <div className="text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        <h3 className="font-bold text-lg">{tattoo.title}</h3>
+                        <p className="text-sm text-gray-300 capitalize">{tattoo.style}</p>
+                      </div>
+                    </div>
+                </Link>
+              ))}
+            </div>
+          )}
         </div>
       </section>
     </main>

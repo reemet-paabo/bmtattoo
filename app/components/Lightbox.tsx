@@ -3,7 +3,7 @@
 import { useEffect } from 'react';
 
 interface Tattoo {
-    id: number;
+    id: string;
     title: string;
     style: string;
     image: string;
