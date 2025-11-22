@@ -30,11 +30,11 @@ export default function RootLayout({
     "description": "Professional and Creative custom tattoo artist in Tallin, Estonia",
     "address": {
       "@type": "PostalAddress",
-      "streetAddress": "Koskla tn 18",
+      "streetAddress": "Koskla tn 16",
       "addressLocality": "Tallinn",
       "addressCountry": "EE"
     },
-    "telephone": "+372 1234 5678",
+    "telephone": "+372 1234 5678", /** @todo remove phone nr everywhere */
     "email": "info@bmtattoo.com",
     "openingHours": ["Mo-Fr 12:00-20:00", "Sa 11:00-18:00"],
     "priceRange": "$$"

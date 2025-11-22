@@ -1,5 +1,51 @@
 import { client } from './sanity-client';
-import { Tattoo } from '@/types/sanity';
+import { Tattoo, About, StudioInfo } from '@/types/sanity';
+
+export async function getAboutPage(): Promise<About | null> {
+    const query = `
+    *[_type == "about"][0] {
+        _id,
+        artistName,
+        yearsExperience,
+        profileImage,
+        bio,
+        specialties,
+        experience,
+        studioDescription
+    }
+    `;
+
+    try {
+        const about = await client.fetch<About>(query);
+        return about;
+    } catch (error) {
+        console.error('Error fetching about page:', error);
+        return null;
+    }
+}
+
+export async function getStudioInfo(): Promise<StudioInfo | null> {
+    const query = `
+        *[_type == "studioInfo"][0] {
+            _id,
+            studioName,
+            address,
+            phone,
+            email,
+            hours,
+            socialMedia,
+            priceRange
+        }
+    `;
+
+    try {
+        const info = await client.fetch<StudioInfo>(query);
+        return info;
+    } catch (error) {
+        console.error('Error fetching studio info', error);
+        return null;
+    }
+}
 
 export async function getTattoos(): Promise<Tattoo[]> {
     const query = `
