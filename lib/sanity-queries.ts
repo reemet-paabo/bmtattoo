@@ -6,7 +6,7 @@ export async function getAboutPage(): Promise<About | null> {
     *[_type == "about"][0] {
         _id,
         artistName,
-        yearsExperience,
+        careerStartYear,
         profileImage,
         bio,
         specialties,

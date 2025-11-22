@@ -1,0 +1,31 @@
+export const specialtyDescriptions: Record<string, string> = {
+  traditional: 'Bold lines, vibrant colors, and classic designs that stand the test of time.',
+  realism: 'Lifelike portraits and detailed imagery that captures every nuance.',
+  geometric: 'Precise patterns and sacred geometry for modern, striking tattoos.',
+  blackwork: 'Bold, solid black designs with powerful visual impact.',
+  color: 'Vibrant, eye-catching designs with expert color blending.',
+  biomechanical: 'Fusion of organic and mechanical elements in intricate detail.',
+  watercolor: 'Soft, flowing designs with artistic watercolor effects.',
+  japanese: 'Traditional Japanese art with dragons, koi, and cherry blossoms.',
+  neotraditional: 'Modern twist on classic traditional style with enhanced detail.',
+  coverups: 'Covering old tattoo with new and fresh one',
+  dotwork: 'Intricate stippling technique creating stunning shaded effects.',
+  tribal: 'Bold, symbolic patterns with cultural and spiritual significance.',
+  custom: 'Collaborative process to create something uniquely yours.',
+};
+
+export const specialtyTitles: Record<string, string> = {
+  traditional: 'Traditional',
+  realism: 'Realism',
+  geometric: 'Geometric',
+  blackwork: 'Blackwork',
+  color: 'Color Work',
+  biomechanical: 'Biomechanical',
+  watercolor: 'Watercolor',
+  japanese: 'Japanese',
+  neotraditional: 'Neo-traditional',
+  coverups: 'Cover-ups',
+  dotwork: 'Dotwork',
+  tribal: 'Tribal',
+  custom: 'Custom Designs',
+}

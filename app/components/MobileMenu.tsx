@@ -1,72 +1,95 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 
-interface MobileMenuProps {
-    isOpen: boolean;
-    toggleMenu: () => void;
-    closeMenu: () => void;
-}
+// interface MobileMenuProps {
+//     isOpen: boolean;
+//     toggleMenu: () => void;
+//     closeMenu: () => void;
+// }
 
-export default function MobileMenu({ isOpen, toggleMenu, closeMenu }: MobileMenuProps) {
+export default function MobileMenu(/*{ isOpen, toggleMenu, closeMenu } : MobileMenuProps*/) {
+    const [isOpen, setIsOpen] = useState(false);
+
+  const toggleMenu = () => setIsOpen(!isOpen);
+  const closeMenu = () => setIsOpen(false);
+
+    useEffect(() => {
+        if(isOpen) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = 'unset';
+        }
+
+        return () => {
+            document.body.style.overflow = 'unset';
+        }
+    }, [isOpen])
+
     return (
         <>
         {/** Burger Button - Only visible on mobile */}
 
         <button
             onClick={toggleMenu}
-            className="md:hidden flex flex-col gap-1.5 z-50"
+            className="md:hidden flex flex-col gap-1.5 z-50 relative"
             aria-label="Toggle menu"
         >
-         <span className={`block w-6 h-0.5 bg-white transition-transform ${isOpen ? 'rotate-45 translate-y-2' : ''}`}/>   
-         <span className={`block w-6 h-0.5 bg-white transition-opacity ${isOpen ? 'opacity-0' : ''}`}/>   
-         <span className={`block w-6 h-0.5 bg-white transition-transform ${isOpen ? '-rotate-45 -translate-y-2' : ''}`}/>   
+         <span className={`block w-6 h-0.5 bg-white transition-all duration-300 ${
+            isOpen ? 'rotate-45 translate-y-2' : ''
+          }`}/>   
+         <span className={`block w-6 h-0.5 bg-white transition-all duration-300 ${
+            isOpen ? 'opacity-0' : ''
+          }`}/>   
+         <span className={`block w-6 h-0.5 bg-white transition-all duration-300 ${
+            isOpen ? '-rotate-45 -translate-y-2' : ''
+          }`}/>   
         </button>
 
         {/** Mobile Menu Overlay */}
 
-        {isOpen && (
+        {/* {isOpen && (
             <div
                 className="fixed inset-0 bg-black bg-opacity-50 z-40 md:hidden"
                 onClick={closeMenu}
             />
-        )}
+        )} */}
 
-        {/** Mobile Menu Sidebar */}
+        {/** Full Screen Overlay Menu */}
         <div 
-            className={`fixed top-0 right-0 h-full w-64 bg-zinc-900 z-50 transform transition-transform duration-300 md:hidden ${
-                isOpen ? 'translate-x-0' : 'translate-x-full'
-            }`}
+            className={`fixed inset-0 bg-black/80 backdrop-blur-sm z-40 md:hidden transition-opacity duration-300 ${
+          isOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
+        }`}
         >
-            <nav className="flex flex-col gap-6 p-8 mt-16">
+            <nav className="flex flex-col items-center justify-center h-full gap-8">
                 <Link 
                     href="/"
                     onClick={closeMenu}
-                    className="text-white text-xl hover:text-gray-300 transition"
+                    className="text-white text-3xl font-light tracking-wider hover:text-gray-300 transition transform hover:scale-110"
                 >
-                    Home
+                    HOME
                 </Link>
                 <Link 
                     href="/portfolio"
                     onClick={closeMenu}
-                    className="text-white text-xl hover:text-gray-300 transition"
+                    className="text-white text-3xl font-light tracking-wider hover:text-gray-300 transition transform hover:scale-110"
                 >
-                    Portfolio
+                    PORTFOLIO
                 </Link>
                 <Link
                     href="/about"
                     onClick={closeMenu}
-                    className="text-white text-xl hover:text-gray-300 transition"
+                    className="text-white text-3xl font-light tracking-wider hover:text-gray-300 transition transform hover:scale-110"
                 >
-                    About
+                    ABOUT
                 </Link>
                 <Link
                     href="/contact"
                     onClick={closeMenu}
-                    className="text-white text-xl hover:text-gray-300 transition"
+                    className="text-white text-3xl font-light tracking-wider hover:text-gray-300 transition transform hover:scale-110"
                 >
-                    Contact
+                    CONTACT
                 </Link>
             </nav>
         </div>

@@ -72,7 +72,7 @@ export default function ContactPage() {
               className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-zinc-900 focus:border-transparent outline-none transition"
               placeholder="+372 1234 5678"/>
           </div>
-          {/** @TODO: Something about what kind of tattoo request? Cover-up, Re-ink,New small, sleeve etc..? before message */}
+          {/** @todo: Something about what kind of tattoo request? Cover-up, Re-ink,New small, sleeve etc..? before message */}
            <div>
             <label htmlFor="option" className="block text-sm font-medium mb-2">
               Selection

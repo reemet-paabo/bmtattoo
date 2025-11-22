@@ -20,7 +20,7 @@ export interface Tattoo {
 export interface About {
     _id: string;
     artistName: string;
-    yearsExperience: number;
+    careerStartYear: number;
     profileImage: {
         asset: {
             _ref: string;
@@ -28,10 +28,7 @@ export interface About {
         };
     };
     bio: any[]; //Rich text blocks
-    specialties?: Array<{
-        title: string;
-        description?: string;
-    }>;
+    specialties?: string[];
     experience?: Array<{
         title: string;
         startYear: string;

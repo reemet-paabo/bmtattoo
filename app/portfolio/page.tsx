@@ -17,7 +17,6 @@ export const revalidate = 60; // revalidates every 60 seconds
 
 
 export default async function PortfolioPage() {
-  /** @todo: Images from storage using api route. Using placeholder/ dummydata right now */
  const sanityTattoos = await getTattoos();
 
   const tattoos = sanityTattoos.map((tattoo) => ({

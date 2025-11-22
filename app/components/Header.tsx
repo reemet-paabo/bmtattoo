@@ -5,10 +5,10 @@ import Link from 'next/link';
 import MobileMenu from './MobileMenu';
 
 export default function Header() {
-    const [isOpen, setIsOpen] = useState(false);
+   // const [isOpen, setIsOpen] = useState(false);
 
-    const toggleMenu = () => setIsOpen(!isOpen);
-    const closeMenu = () => setIsOpen(false);
+    // const toggleMenu = () => setIsOpen(!isOpen);
+    // const closeMenu = () => setIsOpen(false);
 
     return(
         <header className="bg-zinc-900 text-white">
@@ -18,7 +18,7 @@ export default function Header() {
                 <Link 
                     href="/" 
                     className="text-2xl font-bold z-50"
-                    onClick={closeMenu}    
+                    // onClick={closeMenu}    
                 >
                   BM Tattoo
                 </Link>
@@ -48,9 +48,9 @@ export default function Header() {
                 </ul>
               {/** Mobile Menu Component */}
               <MobileMenu 
-                isOpen={isOpen} 
-                toggleMenu={toggleMenu} 
-                closeMenu={closeMenu}
+                //isOpen={isOpen} 
+                //toggleMenu={toggleMenu} 
+                //closeMenu={closeMenu}
                 />
               </div>
               
