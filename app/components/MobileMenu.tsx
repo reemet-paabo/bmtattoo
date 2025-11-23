@@ -27,6 +27,15 @@ export default function MobileMenu(/*{ isOpen, toggleMenu, closeMenu } : MobileM
         }
     }, [isOpen])
 
+  const linkClassName = `
+    relative text-white text-2xl font-light tracking-wider 
+    hover:text-red-500 transition py-4 px-8
+    before:content-[''] before:absolute before:bottom-0 before:left-0 
+    before:w-4 before:h-4 before:border-l-2 before:border-b-2 before:border-red-700
+    after:content-[''] after:absolute after:bottom-0 after:right-0 
+    after:w-4 after:h-4 after:border-r-2 after:border-b-2 after:border-red-700
+  `;
+
     return (
         <>
         {/** Burger Button - Only visible on mobile */}
@@ -48,46 +57,37 @@ export default function MobileMenu(/*{ isOpen, toggleMenu, closeMenu } : MobileM
         </button>
 
         {/** Mobile Menu Overlay */}
-
-        {/* {isOpen && (
-            <div
-                className="fixed inset-0 bg-black bg-opacity-50 z-40 md:hidden"
-                onClick={closeMenu}
-            />
-        )} */}
-
-        {/** Full Screen Overlay Menu */}
         <div 
             className={`fixed inset-0 bg-black/80 backdrop-blur-sm z-40 md:hidden transition-opacity duration-300 ${
           isOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
         }`}
         >
-            <nav className="flex flex-col items-center justify-center h-full gap-8">
+            <nav className="flex flex-col items-center justify-center h-full gap-6">
                 <Link 
                     href="/"
                     onClick={closeMenu}
-                    className="text-white text-3xl font-light tracking-wider hover:text-gray-300 transition transform hover:scale-110"
+                    className="corner-brackets relative text-white text-2xl font-light tracking-wider hover:text-red-500 transition"
                 >
                     HOME
                 </Link>
                 <Link 
                     href="/portfolio"
                     onClick={closeMenu}
-                    className="text-white text-3xl font-light tracking-wider hover:text-gray-300 transition transform hover:scale-110"
+                    className="corner-brackets relative text-white text-2xl font-light tracking-wider hover:text-red-500 transition"
                 >
                     PORTFOLIO
                 </Link>
                 <Link
                     href="/about"
                     onClick={closeMenu}
-                    className="text-white text-3xl font-light tracking-wider hover:text-gray-300 transition transform hover:scale-110"
+                    className="corner-brackets relative text-white text-2xl font-light tracking-wider hover:text-red-500 transition"
                 >
                     ABOUT
                 </Link>
                 <Link
                     href="/contact"
                     onClick={closeMenu}
-                    className="text-white text-3xl font-light tracking-wider hover:text-gray-300 transition transform hover:scale-110"
+                    className="corner-brackets relative text-white text-2xl font-light tracking-wider hover:text-red-500 transition"
                 >
                     CONTACT
                 </Link>
