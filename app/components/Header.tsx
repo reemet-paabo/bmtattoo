@@ -10,17 +10,18 @@ export default function Header() {
     // const toggleMenu = () => setIsOpen(!isOpen);
     // const closeMenu = () => setIsOpen(false);
 
+    /**  BM Tattoo | Home | Portfolio | About | Contact */
     return(
-        <header className="bg-zinc-900 text-white">
+        <header className="absolute top-0 left-0 right-0 z-50 bg-transparent">
             <nav className="container mx-auto px-4 py-6">
               <div className="flex items-center justify-between">
                 {/** Logo Here? */}
                 <Link 
                     href="/" 
-                    className="text-2xl font-bold z-50"
+                    className="text-2xl font-bold z-50 text-white"
                     // onClick={closeMenu}    
                 >
-                  BM Tattoo
+                   DS Tattoo
                 </Link>
 
                 {/** Desktop Navigation - Hidden on mobile */}

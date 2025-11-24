@@ -19,14 +19,14 @@ interface LightboxProps {
     hasPrev: boolean;
 }
 
-export default function Lightbox({ tattoo, onClose, onNext, onPrev, hasNext, hasPrev}: LightboxProps) {
+export default function Lightbox({ tattoo, onClose, onNext, onPrev, hasNext, hasPrev }: LightboxProps) {
 
     // Keyboad navigation Listener
     useEffect(() => {
         const handleKeyDown = (e: KeyboardEvent) => {
-            if(e.key === 'Escape') onClose();
-            if(e.key === 'ArrowRight' && hasNext) onNext();
-            if(e.key === 'ArrowLeft' && hasPrev) onPrev();
+            if (e.key === 'Escape') onClose();
+            if (e.key === 'ArrowRight' && hasNext) onNext();
+            if (e.key === 'ArrowLeft' && hasPrev) onPrev();
         };
 
         window.addEventListener('keydown', handleKeyDown);
@@ -53,8 +53,20 @@ export default function Lightbox({ tattoo, onClose, onNext, onPrev, hasNext, has
                 </svg>
             </button>
 
-            {/** Previous Image button */}
+            {/* Previous button */}
             {hasPrev && (
+                <button
+                    onClick={onPrev}
+                    className="absolute left-4 top-1/2 -translate-y-1/2 text-white hover:text-gray-300 transition z-50"
+                    aria-label="Previous image"
+                >
+                    <svg className="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                    </svg>
+                </button>
+            )}
+            {/* Next button */}
+            {hasNext && (
                 <button
                     onClick={onNext}
                     className="absolute right-4 top-1/2 -translate-y-1/2 text-white hover:text-gray-300 transition z-50"
@@ -77,7 +89,7 @@ export default function Lightbox({ tattoo, onClose, onNext, onPrev, hasNext, has
                 >
                     {/** Image */}
                     <div className="flex-shrink-0 md:w-2/3 bg-black flex items-center juistify-center">
-                        <img 
+                        <img
                             src={tattoo.image}
                             alt={tattoo.title}
                             className="max-w-full max-h-[70vh] md:max-h-[90vh] object-contain"

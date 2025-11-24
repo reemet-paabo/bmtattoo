@@ -29,7 +29,7 @@ export default async function Footer() {
     const info = studioInfo || defaultInfo;
 
     return (
-        <footer className="bg-zinc-900 text-white">
+        <footer className="bg-neutral-950 text-white">
             <div className="container mx-auto px-4 py-12">
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                     {/** Contact Infot Section */} {/** @todo googlemap apis integration */}

@@ -13,8 +13,8 @@ import Footer from "./components/Footer";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "BM Tattoo Studio",
-  description: "Actually DickSquid Tattoo",
+  title: "DickSquid Tattoo Studio",
+  description: "DickSquid Tattoo studio by Roland Paabo",
   metadataBase: new URL('https://bmtattoo.vercel.app')
 }
 

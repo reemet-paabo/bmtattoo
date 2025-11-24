@@ -30,8 +30,8 @@ export default async function PortfolioPage() {
   return (
     <main className="container mx-auto px-4 py-12 md:py-20">
       <div className="mb-12">
-        <h1 className="text-3xl md:text-4xl font-bold mb-4">Portfolio</h1>
-        <p className="text-gray-600 text-lg">
+        <h3 className="text-zinc-50 text-3xl md:text-4xl font-bold mb-4">Portfolio</h3>
+        <p className="text-zinc-300 text-lg">
           Browse the collection of custom tattoo work
         </p>
       </div>
