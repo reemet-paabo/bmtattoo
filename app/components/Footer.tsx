@@ -24,7 +24,7 @@ export default async function Footer() {
             instagram: 'https://instagram.com',
             facebook: 'https://facebook.com',
         },
-    };
+    }; 
 
     const info = studioInfo || defaultInfo;
 

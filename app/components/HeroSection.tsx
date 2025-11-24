@@ -1,6 +1,43 @@
+'use client';
+
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 
-export default function HeroSection() {
+interface Tattoo {
+    _id: string;
+    title: string;
+    style: string;
+    image: string;
+}
+
+interface HeroSectionProps {
+    featuredTattoos: Tattoo[];
+}
+
+
+export default function HeroSection({ featuredTattoos }: HeroSectionProps) {
+    const [currentIndex, setCurrentIndex] = useState(0);
+
+
+    // Auto-scroll caruousel
+    useEffect(() => {
+        if (featuredTattoos.length === 0) return;
+
+        const interval = setInterval(() => {
+            setCurrentIndex((prev) => (prev + 1) % featuredTattoos.length);
+        }, 3000);
+
+        return () => clearInterval(interval);
+    }, [featuredTattoos.length]);
+
+    const getPrevIndex = () => {
+        return currentIndex === 0 ? featuredTattoos.length - 1 : currentIndex - 1;
+    };
+
+    const getNextIndex = () => {
+        return (currentIndex + 1) % featuredTattoos.length;
+    }
+
     return (
         <section className="relative min-h-screen w-full overflow-hidden flex items-center justify-center">
             {/** Video Background */}
@@ -23,47 +60,102 @@ export default function HeroSection() {
                 </video>
 
                 {/** Dark overlay */}
-                <div className="absolute inset-0 bg-black/60" />
+                <div className="absolute inset-0 bg-black/70" />
             </div>
 
-            {/** Content */}
+            {/* Content */}
             <div className="relative z-10 w-full px-4 py-20">
-                <div className="max-w-4xl mx-auto text-center">
-                    {/** LOGO or NAME */}
-                    <h1 className="text-4xl sm:text-5xl md:text-7xl font-bold text-white mb-4 tracking-wider">
-                        DICKSQUID TATTOO
-                    </h1>
+                <div className="max-w-6xl mx-auto">
+                    {/* Top Section - Logo and Tagline */}
+                    <div className="text-center mb-12">
+                        <h1 className="text-4xl sm:text-5xl md:text-7xl font-bold text-white mb-4 tracking-wider">
+                            BM TATTOO
+                        </h1>
 
-                    { /** TAGLINE */}
-                    <p className="text-xl md:text-2xl text-white/90 mb-8 font-light tracking-wide">
-                        Custom Tattoos  •  Tallinn, Estonia
-                    </p>
+                        <p className="text-lg sm:text-xl md:text-2xl text-white/90 mb-8 font-light tracking-wide">
+                            Custom Tattoos • Tallinn, Estonia
+                        </p>
 
-                    {/** Divider */}
-                    <div className="w-40 h-1 bg-red-700 mb-8 mx-auto" />
-                    {/** Action Buttons */}
-                    <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                        <div className="w-24 h-1 bg-red-700 mb-10 mx-auto" />
+                    </div>
+
+                    {/* Call to Action Buttons */}
+                    <div className="flex flex-col sm:flex-row gap-4 justify-center mb-22">
                         <Link
                             href="/portfolio"
-                            className="bg-red-700 hover:bg-red-800 text-white px-8 py-3 sm:py-4 rounded-lg font-medium text-base sm:text-lg transition transform hover:scale-105"
+                            className="bg-red-700 hover:bg-red-800 text-white px-6 sm:px-8 py-3 sm:py-4 rounded-lg font-medium text-base sm:text-lg transition transform hover:scale-105"
                         >
                             View Portfolio
                         </Link>
                         <Link
                             href="/contact"
-                            className="border-2 border-white text-white hover:bg-white hover:text-black px-8 py-3 sm:py-4 rounded-lg font-medium text-base sm:text-lg transition"
+                            className="border-2 border-white text-white hover:bg-white hover:text-black px-6 sm:px-8 py-3 sm:py-4 rounded-lg font-medium text-base sm:text-lg transition"
                         >
-                            BOOKING
+                            Book Appointment
                         </Link>
                     </div>
+
+                    {/* Featured Work Carousel */}
+                    {featuredTattoos.length > 0 && (
+                        <div className="relative h-38 sm:h-80 md:h-96 mb-16">
+                            <div className="flex items-center justify-center h-full gap-4 px-4">
+                                {/* Previous Image (Faded) */}
+                                {featuredTattoos.length > 1 && (
+                                    <div className="hidden sm:block w-48 md:w-64 h-48 md:h-64 opacity-40 transition-all duration-500">
+                                        <img
+                                            src={featuredTattoos[getPrevIndex()].image}
+                                            alt={featuredTattoos[getPrevIndex()].title}
+                                            className="w-full h-full object-cover rounded-lg"
+                                        />
+                                    </div>
+                                )}
+
+                                {/* Current Image (Focused) */}
+                                <div className="w-64 sm:w-72 md:w-96 h-64 sm:h-72 md:h-96 opacity-90 transition-all duration-500 transform scale-100 shadow-2xl">
+                                    <Link href="/portfolio" className="block w-full h-full">
+                                        <img
+                                            src={featuredTattoos[currentIndex].image}
+                                            alt={featuredTattoos[currentIndex].title}
+                                            className="w-full h-full object-cover rounded-lg border-2 border-red-700"
+                                        />
+                                    </Link>
+                                </div>
+
+                                {/* Next Image (Faded) */}
+                                {featuredTattoos.length > 1 && (
+                                    <div className="hidden sm:block w-48 md:w-64 h-48 md:h-64 opacity-40 transition-all duration-500">
+                                        <img
+                                            src={featuredTattoos[getNextIndex()].image}
+                                            alt={featuredTattoos[getNextIndex()].title}
+                                            className="w-full h-full object-cover rounded-lg"
+                                        />
+                                    </div>
+                                )}
+                            </div>
+
+                            {/* Carousel Indicators */}
+                            <div className="relative top-10 items-center justify-center left-1/2 -translate-x-1/2 flex gap-2">
+                                {featuredTattoos.map((_, index) => (
+                                    <button
+                                        key={index}
+                                        onClick={() => setCurrentIndex(index)}
+                                        className={`w-2 h-2 rounded-full transition-all duration-300 ${index === currentIndex
+                                                ? 'bg-red-700 w-8'
+                                                : 'bg-white/50 hover:bg-white/80'
+                                            }`}
+                                        aria-label={`Go to slide ${index + 1}`}
+                                    />
+                                ))}
+                            </div>
+                        </div>
+                    )}
                 </div>
             </div>
 
-
-            {/** Scroll. MAYBE @todo: remember, maybe remove */}
-            <div className="absolute bottom-22 left-1/2 -translate-x-1/2 animate-bounce z-10">
+            {/* Scroll indicator */}
+            <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce z-10">
                 <svg
-                    className="w-8 h-8 text-white/70"
+                    className="w-6 h-6 text-white/70"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"

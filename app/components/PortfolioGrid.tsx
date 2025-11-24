@@ -46,7 +46,7 @@ export default function PortfolioGrid({ tattoos }: PortfolioGridProps) {
                     <div
                         key={tattoo.id}
                         onClick={() => openLightbox(index)}
-                        className="group cursor-pointer relative aspect-square overflow-hidden rounded-lg bg-gray-200 border-2 border-zinc-300"
+                        className="group cursor-pointer relative aspect-square overflow-hidden rounded-lg bg-zinc-900 border border-zinc-800 hover:border-red-700 transition-all duration-300"
                     >
                         {/* Image */}
                         <img
@@ -59,10 +59,10 @@ export default function PortfolioGrid({ tattoos }: PortfolioGridProps) {
                         <div className="absolute inset-0 bg-black opacity-20 pointer-events-none" />
 
                         {/* Hover overlay */}
-                        <div className="absolute inset-0 bg-transparent group-hover:bg-black group-hover:bg-opacity-60 transition-all duration-300 flex items-end p-4">
+                        <div className="absolute inset-0 bg-transparent group-hover:bg-black group-hover:bg-opacity-70 transition-all duration-300 flex items-end p-6">
                             <div className="text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                                <h3 className="font-bold text-lg">{tattoo.title}</h3>
-                                <p className="text-sm text-gray-300">{tattoo.style}</p>
+                                <h3 className="font-bold text-xl mb-1">{tattoo.title}</h3>
+                                <p className="text-sm text-zinc-300 capitalize">{tattoo.style}</p>
                             </div>
                         </div>
                     </div>
