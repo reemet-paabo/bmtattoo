@@ -1,5 +1,11 @@
 import { cookies } from 'next/headers';
 import { jwtVerify } from 'jose';
+import { redirect } from 'next/navigation';
+import Link from 'next/link';
+import { getDashboardStats } from '@/lib/sanity-queries';
+import { urlFor } from '@/lib/sanity-client';
+
+
 
 /** @todo: tsConfig paths */
 import LogoutButton from '@/app/components/LogoutButton';
@@ -10,182 +16,205 @@ const JWT_SECRET = new TextEncoder().encode(
   process.env.JWT_SECRET || 'secret-key-change-in-production'
 );
 
-async function getUsername() {
-  try {
-    const cookieStore = await cookies();
-    const token = cookieStore.get('admin-token')?.value;
 
-    if (!token) return null;
-
-    const { payload } = await jwtVerify(token, JWT_SECRET);
-
-    return payload.username as string;
-  } catch (error) {
-    console.error('Error getting username:', error);
-    return null;
-  }
-}
 
 export default async function AdminDashboardPage() {
-  const username = await getUsername();
+  
+  const cookieStore = await cookies();
+  const token = cookieStore.get('admin-token')?.value;
+  
+  if (!token) {
+    redirect('/admin/login')
+  }
+  let username = 'Admin';
+  try {
+    const verified = await jwtVerify(token, JWT_SECRET);
+    username = (verified.payload.username as string) || 'Admin';
+  } catch (error) {
+    redirect('/admin/login');
+  }
+  
+  // Fetch Dashboard stats.
+  const stats = await getDashboardStats();
 
   return (
-    <div className="min-h-screen bg-gray-100">
-      {/** Header */}
-      <header className="bg-white shadow">
-        <div className="container mx-auto px-4 py-6 flex justify-between items-center">
-          <h1 className="text-2xl font-bold text-gray-900">Admin Dashboard</h1>
+    <main className="bg-zinc-950 min-h-screen pt-24 pb-16">
+      <div className="container mx-auto px-4">
+        {/* Header */}
+        <div className="flex justify-between items-center mb-8">
+          <div>
+            <h1 className="text-3xl font-bold text-white mb-2">Dashboard</h1>
+            <p className="text-zinc-400">Welcome back, {username}</p>
+          </div>
           <LogoutButton />
         </div>
-      </header>
-      {/** Main Content */}
-      <main className="container mx-auto px-4 py-8">
-        {/** Welcome Card */}
-        <div className="bg-white rounded-lg shadow-md p-8 mb-8">
-          <h2 className="text-3xl font-bold text-gray-900 mb-2">
-            Welcome back, {username}!👋
-          </h2>
-          <p className="text-gray-600">
-            Manage your studio's website from this dashboard.
-          </p>
-        </div>
-        {/** Quick Stats */}
+
+        {/* Stats Grid */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-          <div className="bg-white rounded-lg shadow-md p-6">
+          {/* Total Tattoos */}
+          <div className="bg-zinc-900 border border-zinc-800 rounded-lg p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-gray-600 text-sm font-medium">Portfolio Items</p>
-                <p className="text-3xl font-bold text-gray-900 mt-1">6</p> {/*** @todo: hardcoded a placeholder */}
+                <p className="text-zinc-400 text-sm mb-1">Total Tattoos</p>
+                <p className="text-3xl font-bold text-white">{stats.totalTattoos}</p>
               </div>
-              <div className="bg-blue-100 rounded-full p-3">
-                <svg className="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <div className="w-12 h-12 bg-red-700/20 rounded-lg flex items-center justify-center">
+                <svg className="w-6 h-6 text-red-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
                 </svg>
               </div>
             </div>
           </div>
 
-          <div className="bg-white rounded-lg shadow-md p-6">
+          {/* Featured Tattoos */}
+          <div className="bg-zinc-900 border border-zinc-800 rounded-lg p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-gray-500 text-sm font-medium">Contact Messages</p>
-                <p className="text-3xl font-bold text-gray-900 mt-1">0</p> {/** @todo: hardcoded placeholder */}
+                <p className="text-zinc-400 text-sm mb-1">Featured</p>
+                <p className="text-3xl font-bold text-white">{stats.featuredTattoos}</p>
               </div>
-              <div className="bg-green-100 rounded-full p-3">
-                <svg className="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+              <div className="w-12 h-12 bg-red-700/20 rounded-lg flex items-center justify-center">
+                <svg className="w-6 h-6 text-red-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" />
                 </svg>
               </div>
             </div>
           </div>
 
-          <div className="bg-white rounded-lg shadow-md p-6">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-gray-500 text-sm font-medium">Site views</p>
-                <p className="text-3xl font-bold text-gray-900 mt-1">--</p> {/** @todo: hardcoded placeholder */}
-              </div>
-              <div className="bg-purple-100 rounded-full p-3">
-                <svg className="w-8 h-8 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-                </svg>
-              </div>
-            </div>
+          {/* Quick Action */}
+          <div className="bg-zinc-900 border border-zinc-800 rounded-lg p-6">
+            <p className="text-zinc-400 text-sm mb-3">Quick Actions</p>
+            <Link
+              href="/admin/studio"
+              className="block bg-red-700 hover:bg-red-800 text-white text-center py-2 rounded-lg font-medium transition"
+            >
+              Open Studio
+            </Link>
+          </div>
+        </div>
+
+        {/* Recent Tattoos */}
+        <div className="bg-zinc-900 border border-zinc-800 rounded-lg p-6 mb-8">
+          <div className="flex justify-between items-center mb-6">
+            <h2 className="text-xl font-bold text-white">Recent Uploads</h2>
+            <Link
+              href="/admin/studio"
+              className="text-red-700 hover:text-red-600 text-sm font-medium transition"
+            >
+              View All →
+            </Link>
           </div>
 
-          { /** Managment Sections */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {/** Portfolio Sections */}
-            <div className="bg-white rounded-lg shadow-md p-6">
-              <div className="flex items-center mb-4">
-                <svg className="w-6 h-6 text-zinc-900 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          {stats.recentTattoos.length === 0 ? (
+            <p className="text-zinc-400 text-center py-8">No tattoos uploaded yet. Add some in the Studio!</p>
+          ) : (
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4">
+              {stats.recentTattoos.map((tattoo: any) => (
+                <div key={tattoo._id} className="group relative aspect-square rounded-lg overflow-hidden bg-zinc-800">
+                  <img
+                    src={urlFor(tattoo.image).width(400).height(400).url()}
+                    alt={tattoo.title}
+                    className="w-full h-full object-cover"
+                  />
+                  <div className="absolute inset-0 bg-black/70 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-end p-3">
+                    <p className="text-white font-medium text-sm truncate">{tattoo.title}</p>
+                    <p className="text-zinc-300 text-xs capitalize">{tattoo.style}</p>
+                    {tattoo.featured && (
+                      <span className="absolute top-2 right-2 bg-red-700 text-white text-xs px-2 py-1 rounded">
+                        Featured
+                      </span>
+                    )}
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+
+        {/* Management Links */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {/* Portfolio Management */}
+          <div className="bg-zinc-900 border border-zinc-800 rounded-lg p-6">
+            <div className="flex items-start gap-4">
+              <div className="w-12 h-12 bg-red-700/20 rounded-lg flex items-center justify-center flex-shrink-0">
+                <svg className="w-6 h-6 text-red-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
                 </svg>
-                <h3 className="text-xl font-bold text-gray-900">Portfolio</h3>
               </div>
-              <p className="text-gray-600 mb-4">
-                Manage your portfolio images and descriptions.
-              </p>
-              <button className="w-full big-zinc-900 text-white py-2 rounded-lg hover:bg-zinc-800 transition">
-                Manage Portolio
-              </button>
+              <div className="flex-1">
+                <h3 className="text-white font-bold mb-2">Manage Portfolio</h3>
+                <p className="text-zinc-400 text-sm mb-4">Upload new tattoos, edit existing work, and manage featured items.</p>
+                <Link
+                  href="/admin/studio"
+                  className="text-red-700 hover:text-red-600 text-sm font-medium transition"
+                >
+                  Open Studio →
+                </Link>
+              </div>
             </div>
-            {/** Content Managment */}
-            <div className="bg-white rounded-lg shadow-md p-6">
-              <div className="flex items-center mb-4">
-                <svg className="w-6 h-6 text-zinc-900 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          </div>
+
+          {/* Content Management */}
+          <div className="bg-zinc-900 border border-zinc-800 rounded-lg p-6">
+            <div className="flex items-start gap-4">
+              <div className="w-12 h-12 bg-red-700/20 rounded-lg flex items-center justify-center flex-shrink-0">
+                <svg className="w-6 h-6 text-red-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
                 </svg>
-                <h3 className="text-xl font-bold text-gray-900" >
-                  Content
-                </h3>
               </div>
-              <p className="text-gray-600 mb-4">
-                Edit about page, contact information, and studio hours
-              </p>
-
-              <button className="w-full bg-zinc-900 text-white py-2 rounded-lg hover:bg-zinc-800 transition">
-                Edit Content
-              </button>
+              <div className="flex-1">
+                <h3 className="text-white font-bold mb-2">Edit Content</h3>
+                <p className="text-zinc-400 text-sm mb-4">Update About page, studio information, hours, and contact details.</p>
+                <Link
+                  href="/admin/studio"
+                  className="text-red-700 hover:text-red-600 text-sm font-medium transition"
+                >
+                  Manage Content →
+                </Link>
+              </div>
             </div>
+          </div>
 
-            {/** Messages */}
-            <div className="bg-white rounded-lg shadow-md p-6">
-              <div className="flex items-center mb-4">
-                <svg className="w-6 h-6 text-zinc-900 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+          {/* View Site */}
+          <div className="bg-zinc-900 border border-zinc-800 rounded-lg p-6">
+            <div className="flex items-start gap-4">
+              <div className="w-12 h-12 bg-red-700/20 rounded-lg flex items-center justify-center flex-shrink-0">
+                <svg className="w-6 h-6 text-red-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
                 </svg>
-                <h3 className="text-xl font-bold text-gray-900">Messages</h3>
               </div>
-              <p className="text-gray-600 mb-4">
-                View contact form submissions from potential clients.
-              </p>
-              <button className="w-full bg-zinc-900 text-white py-2 rounded-lg hover:bg-zinc-800 transition">
-                View Messages
-              </button>
+              <div className="flex-1">
+                <h3 className="text-white font-bold mb-2">View Website</h3>
+                <p className="text-zinc-400 text-sm mb-4">See how your site looks to visitors and check recent changes.</p>
+                <Link
+                  href="/"
+                  target="_blank"
+                  className="text-red-700 hover:text-red-600 text-sm font-medium transition"
+                >
+                  Open Site →
+                </Link>
+              </div>
             </div>
+          </div>
 
-            {/**Settings */}
-            <div className="bg-white rounded-lg shadow-md p-6">
-              <div className="flex items-center mb-4">
-                <svg className="w-6 h-6 text-zinc-900 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          {/* Settings (Placeholder) */}
+          <div className="bg-zinc-900 border border-zinc-800 rounded-lg p-6 opacity-50">
+            <div className="flex items-start gap-4">
+              <div className="w-12 h-12 bg-zinc-800 rounded-lg flex items-center justify-center flex-shrink-0">
+                <svg className="w-6 h-6 text-zinc-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                 </svg>
-                <h3 className="text-xl font-bold text-fray-900">Settings</h3>
               </div>
-              <p className="text-gray-600 mb-4">
-                Update password, notification preferances, and more.
-              </p>
-              <button className="w-full bg-zinc-900 text-white py-2 rounded-lg hover:bg-zinc-800 transition">
-                Manage Settings
-              </button>
-            </div>
-          </div>
-          {/** Quick Links */}
-          <div className="mt-8 bg-zinc-900 text-white rounded-lg shadow-md p-6">
-            <h3 className="text-xl font-bold mb-4">Quick Links</h3>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-              <a href="/" target="_blank" className="text-center p-4 bg-zinc-800 rounded-lg hover:bg-zinc-700 transition">
-                <span className="block text-2xl mb-2">🏠</span>
-                <span className="text-sm">View Site</span>
-              </a>
-              <a href="/portfolio" target="_blank" className="text-center p-4 bg-zinc-800 rounded-lg hover:bg-zinc-700 transition">
-                <span className="block text-2xl mb-2">🎨</span>
-                <span className="text-sm">Portfolio</span>
-              </a>
-              <a href="/about" target="_blank" className="text-center p-4 bg-zinc-800 rounded-lg hover:bg-zinc-700 transition">
-                <span className="block text-2xl mb-2">👤</span>
-                <span className="text-sm">About</span>
-              </a>
-              <a href="/contact" target="_blank" className="text-center p-4 bg-zinc-800 rounded-lg hover:bg-zinc-700 transition">
-                <span className="block text-2xl mb-2">📧</span>
-                <span className="text-sm">Contact</span>
-              </a>
+              <div className="flex-1">
+                <h3 className="text-zinc-500 font-bold mb-2">Settings</h3>
+                <p className="text-zinc-600 text-sm mb-4">Coming soon: Change password, email settings, and more.</p>
+              </div>
             </div>
           </div>
         </div>
-      </main>
-    </div>
+      </div>
+    </main>
   )
 }

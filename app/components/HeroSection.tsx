@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 
 interface Tattoo {
     _id: string;
@@ -68,9 +69,22 @@ export default function HeroSection({ featuredTattoos }: HeroSectionProps) {
                 <div className="max-w-6xl mx-auto">
                     {/* Top Section - Logo and Tagline */}
                     <div className="text-center mb-12">
-                        <h1 className="text-4xl sm:text-5xl md:text-7xl font-bold text-white mb-4 tracking-wider">
-                            DS-TATTOO(logo)
-                        </h1>
+                        <div className="flex justify-center mb-6">
+                            
+
+                            <Image
+                                src="/logo.png"
+                                alt="BM Tattoo Studio"
+                                width={600}
+                                height={300}
+                                className="w-auto h-64 md:h-120 object-contain"
+                                style={{
+                                    filter: 'drop-shadow(0 0 20px rgba(192, 181, 181, 0.8)) brightness(1.1) contrast(1.3)',
+                                }}
+                                priority
+                            />
+                            
+                        </div>
 
                         <p className="text-lg sm:text-xl md:text-2xl text-white/90 mb-8 font-light tracking-wide">
                             Custom Tattoos • Tallinn, Estonia
@@ -97,57 +111,58 @@ export default function HeroSection({ featuredTattoos }: HeroSectionProps) {
 
                     {/* Featured Work Carousel */}
                     {featuredTattoos.length > 0 && (
-                        <div className="relative h-38 sm:h-80 md:h-96 mb-16">
-                            <div className="flex items-center justify-center h-full gap-4 px-4">
-                                {/* Previous Image (Faded) */}
-                                {featuredTattoos.length > 1 && (
-                                    <div className="hidden sm:block w-48 md:w-64 h-48 md:h-64 opacity-40 transition-all duration-500">
-                                        <img
-                                            src={featuredTattoos[getPrevIndex()].image}
-                                            alt={featuredTattoos[getPrevIndex()].title}
-                                            className="w-full h-full object-cover rounded-lg"
-                                        />
-                                    </div>
-                                )}
+                        <></>
+                        // <div className="relative h-38 sm:h-80 md:h-96 mb-16">
+                        //     <div className="flex items-center justify-center h-full gap-4 px-4">
+                        //         {/* Previous Image (Faded) */}
+                        //         {featuredTattoos.length > 1 && (
+                        //             <div className="hidden sm:block w-48 md:w-64 h-48 md:h-64 opacity-40 transition-all duration-500">
+                        //                 <img
+                        //                     src={featuredTattoos[getPrevIndex()].image}
+                        //                     alt={featuredTattoos[getPrevIndex()].title}
+                        //                     className="w-full h-full object-cover rounded-lg"
+                        //                 />
+                        //             </div>
+                        //         )}
 
-                                {/* Current Image (Focused) */}
-                                <div className="w-64 sm:w-72 md:w-96 h-64 sm:h-72 md:h-96 opacity-90 transition-all duration-500 transform scale-100 shadow-2xl">
-                                    <Link href="/portfolio" className="block w-full h-full">
-                                        <img
-                                            src={featuredTattoos[currentIndex].image}
-                                            alt={featuredTattoos[currentIndex].title}
-                                            className="w-full h-full object-cover rounded-lg border-2 border-red-700"
-                                        />
-                                    </Link>
-                                </div>
+                        //         {/* Current Image (Focused) */}
+                        //         <div className="w-64 sm:w-72 md:w-96 h-64 sm:h-72 md:h-96 opacity-90 transition-all duration-500 transform scale-100 shadow-2xl">
+                        //             <Link href="/portfolio" className="block w-full h-full">
+                        //                 <img
+                        //                     src={featuredTattoos[currentIndex].image}
+                        //                     alt={featuredTattoos[currentIndex].title}
+                        //                     className="w-full h-full object-cover rounded-lg border-2 border-red-700"
+                        //                 />
+                        //             </Link>
+                        //         </div>
 
-                                {/* Next Image (Faded) */}
-                                {featuredTattoos.length > 1 && (
-                                    <div className="hidden sm:block w-48 md:w-64 h-48 md:h-64 opacity-40 transition-all duration-500">
-                                        <img
-                                            src={featuredTattoos[getNextIndex()].image}
-                                            alt={featuredTattoos[getNextIndex()].title}
-                                            className="w-full h-full object-cover rounded-lg"
-                                        />
-                                    </div>
-                                )}
-                            </div>
+                        //         {/* Next Image (Faded) */}
+                        //         {featuredTattoos.length > 1 && (
+                        //             <div className="hidden sm:block w-48 md:w-64 h-48 md:h-64 opacity-40 transition-all duration-500">
+                        //                 <img
+                        //                     src={featuredTattoos[getNextIndex()].image}
+                        //                     alt={featuredTattoos[getNextIndex()].title}
+                        //                     className="w-full h-full object-cover rounded-lg"
+                        //                 />
+                        //             </div>
+                        //         )}
+                        //     </div>
 
-                            {/* Carousel Indicators */}
-                            <div className="relative top-10 items-center justify-center left-1/2 -translate-x-1/2 flex gap-2">
-                                {featuredTattoos.map((_, index) => (
-                                    <button
-                                        key={index}
-                                        onClick={() => setCurrentIndex(index)}
-                                        className={`w-2 h-2 rounded-full transition-all duration-300 ${index === currentIndex
-                                                ? 'bg-red-700 w-8'
-                                                : 'bg-white/50 hover:bg-white/80'
-                                            }`}
-                                        aria-label={`Go to slide ${index + 1}`}
-                                    />
-                                ))}
-                            </div>
-                        </div>
+                        //     {/* Carousel Indicators */}
+                        //     <div className="relative top-10 items-center justify-center left-1/2 -translate-x-1/2 flex gap-2">
+                        //         {featuredTattoos.map((_, index) => (
+                        //             <button
+                        //                 key={index}
+                        //                 onClick={() => setCurrentIndex(index)}
+                        //                 className={`w-2 h-2 rounded-full transition-all duration-300 ${index === currentIndex
+                        //                         ? 'bg-red-700 w-8'
+                        //                         : 'bg-white/50 hover:bg-white/80'
+                        //                     }`}
+                        //                 aria-label={`Go to slide ${index + 1}`}
+                        //             />
+                        //         ))}
+                        //     </div>
+                        // </div>
                     )}
                 </div>
             </div>

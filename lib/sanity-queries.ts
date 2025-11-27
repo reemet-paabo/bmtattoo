@@ -1,6 +1,37 @@
 import { client } from './sanity-client';
 import { Tattoo, About, StudioInfo } from '@/types/sanity';
 
+export async function getDashboardStats() {
+    const queries = [
+        client.fetch<number>(`count(*[_type == "tattoo"])`),
+        client.fetch<number>(`count(*[_type == "tattoo" && featured == true])`),
+        client.fetch(`*[_type == "tattoo"] | order(_createdAt desc) [0...5] {
+            _id,
+            _createdAt,
+            title,
+            style,
+            image,
+            featured
+            }`),
+    ];
+
+    try {
+        const [totalTattoos, featuredTattoos, recentTattoos] = await Promise.all(queries);
+
+        return {
+            totalTattoos,
+            featuredTattoos,
+            recentTattoos,
+        };
+    } catch (error) {
+        console.error('Error fetching dashboard stats:', error);
+        return {
+            totalTattoos: 0,
+            featuredTattoos: 0,
+            recentTattoos: [],
+        };
+    }
+}
 export async function getAboutPage(): Promise<About | null> {
     const query = `
     *[_type == "about"][0] {
