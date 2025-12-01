@@ -19,7 +19,7 @@ export async function POST(request: NextRequest) {
         // Send email via Resend
         const data = await resend.emails.send({
             from: 'Contact Form <info@bmtattoo.com>',
-            to: 'info@bnmtattoo.com',
+            to: 'info@bmtattoo.com',
             replyTo: email,
             subject: `New Contact Form: ${name}`,
             html: `
