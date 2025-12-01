@@ -4,6 +4,13 @@ import { urlFor } from '@/lib/sanity-client';
 import PortableText from '../components/PortableText';
 import { specialtyDescriptions, specialtyTitles } from '@/lib/specialty-descriptions';
 
+import { Alumni_Sans_SC } from 'next/font/google';
+
+const AlumniSans = Alumni_Sans_SC({
+  weight: '500',
+  subsets: ['latin']
+})
+
 export const metadata: Metadata = {
   title: "About | DickSquid Tattoo Studio - Meet the Artist",
   description: "Learn about Roland \"Rolts\" Paabo, renowned artist in Tallinn with over 20 years of experience. Creative imagination brought to life through a precise and steady hand",
@@ -21,7 +28,7 @@ export default async function AboutPage() {
 
   if (!about) {
     return (
-      <main className="bg-zinc-950 min-h-screen pt-24">
+      <main className={`${AlumniSans.className} bg-zinc-950 min-h-screen pt-24`}>
         <div className="container mx-auto px-4 py-20">
           <h1 className="text-3xl md:text-4xl font-bold mb-4 text-white">About</h1>
           <p className="text-zinc-400">Content coming soon. Please add content in the Studio!</p>
@@ -34,7 +41,7 @@ export default async function AboutPage() {
   const yearsOfExperience = currentYear - about.careerStartYear;
 
   return (
-    <main className="bg-zinc-950 pt-24 pb-16">
+    <main className={`${AlumniSans.className} bg-zinc-950 pt-24 pb-16`}>
       <div className="container mx-auto px-4">
         {/* Hero Section */}
         <div className="max-w-4xl mx-auto mb-16">

@@ -4,6 +4,15 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 
+import { Alumni_Sans_SC } from 'next/font/google';
+
+const AlumniSans = Alumni_Sans_SC({
+  weight: '500',
+  subsets: ['latin']
+})
+
+
+
 interface Tattoo {
     _id: string;
     title: string;
@@ -21,23 +30,23 @@ export default function HeroSection({ featuredTattoos }: HeroSectionProps) {
 
 
     // Auto-scroll caruousel
-    useEffect(() => {
-        if (featuredTattoos.length === 0) return;
+    // useEffect(() => {
+    //     if (featuredTattoos.length === 0) return;
 
-        const interval = setInterval(() => {
-            setCurrentIndex((prev) => (prev + 1) % featuredTattoos.length);
-        }, 3000);
+    //     const interval = setInterval(() => {
+    //         setCurrentIndex((prev) => (prev + 1) % featuredTattoos.length);
+    //     }, 3000);
 
-        return () => clearInterval(interval);
-    }, [featuredTattoos.length]);
+    //     return () => clearInterval(interval);
+    // }, [featuredTattoos.length]);
 
-    const getPrevIndex = () => {
-        return currentIndex === 0 ? featuredTattoos.length - 1 : currentIndex - 1;
-    };
+    // const getPrevIndex = () => {
+    //     return currentIndex === 0 ? featuredTattoos.length - 1 : currentIndex - 1;
+    // };
 
-    const getNextIndex = () => {
-        return (currentIndex + 1) % featuredTattoos.length;
-    }
+    // const getNextIndex = () => {
+    //     return (currentIndex + 1) % featuredTattoos.length;
+    // }
 
     return (
         <section className="relative min-h-screen w-full overflow-hidden flex items-center justify-center">
@@ -86,7 +95,7 @@ export default function HeroSection({ featuredTattoos }: HeroSectionProps) {
                             
                         </div>
 
-                        <p className="text-lg sm:text-xl md:text-2xl text-white/90 mb-8 font-light tracking-wide">
+                        <p className={`${AlumniSans.className} text-3xl sm:text-9xl md:text-5xl text-white/90 mb-8 font-light tracking-wide`}>
                             Custom Tattoos • Tallinn, Estonia
                         </p>
 
@@ -94,18 +103,18 @@ export default function HeroSection({ featuredTattoos }: HeroSectionProps) {
                     </div>
 
                     {/* Call to Action Buttons */}
-                    <div className="flex flex-col sm:flex-row gap-4 justify-center mb-22">
+                    <div className="flex flex-col sm:flex-row gap-4 text-center justify-center mb-22">
                         <Link
                             href="/portfolio"
                             className="bg-red-700 hover:bg-red-800 text-white px-6 sm:px-8 py-3 sm:py-4 rounded-lg font-medium text-base sm:text-lg transition transform hover:scale-105"
                         >
-                            View Portfolio
+                            PORTFOLIO
                         </Link>
                         <Link
                             href="/contact"
                             className="border-2 border-white text-white hover:bg-white hover:text-black px-6 sm:px-8 py-3 sm:py-4 rounded-lg font-medium text-base sm:text-lg transition"
                         >
-                            Book Appointment
+                            BOOKING
                         </Link>
                     </div>
 

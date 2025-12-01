@@ -1,6 +1,14 @@
 
 import type { Metadata } from 'next';
 
+
+import { Alumni_Sans_SC } from 'next/font/google';
+
+const AlumniSans = Alumni_Sans_SC({
+  weight: '500',
+  subsets: ['latin']
+})
+
 export const metadata: Metadata = {
   title: "Contact | DickSquid Tattoo Studio - Book Your Appoinment Today",
   description: "Contact DickSquid Tattoo Studio in Tallinn to book your custom tattoo appointment. Located at 123 StreetName. Call +372 1234 5678 or fill out the contact form.",
@@ -23,13 +31,13 @@ export const metadata: Metadata = {
  */
 export default function ContactPage() {
   return (
-    <main className="bg-zinc-950 min-h-screen pt-24 pb-16">
+    <main className={`${AlumniSans.className} bg-zinc-950 min-h-screen pt-24 pb-16`}>
       <div className="container mx-auto px-4 py-12 md:py-20">
         <div className="max-w-2xl mx-auto">
           <div className="text-center mb-12">
             <h1 className="text-3xl md:text-4xl font-bold mb-4 text-white">Get in Touch</h1>
             <div className="w-24 h-1 bg-red-700 mx-auto mb-6" />
-            <p className="text-zinc-300 text-lg">
+            <p className="text-zinc-300 text-4xl">
               Interested in getting a tattoo? Fill out the form below and we'll get back to you soon.
             </p>
           </div>
