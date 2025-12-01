@@ -1,4 +1,4 @@
-
+import { useState } from 'react';
 import type { Metadata } from 'next';
 
 
@@ -9,16 +9,16 @@ const AlumniSans = Alumni_Sans_SC({
   subsets: ['latin']
 })
 
-export const metadata: Metadata = {
-  title: "Contact | DickSquid Tattoo Studio - Book Your Appoinment Today",
-  description: "Contact DickSquid Tattoo Studio in Tallinn to book your custom tattoo appointment. Located at 123 StreetName. Call +372 1234 5678 or fill out the contact form.",
-  openGraph: {
-    title: "Contact | DickSquid Tattoo Studio",
-    description: "Get in touch and book your appointment.",
-    url: "https://bmtattoo.vercel.app/contact"
+// export const metadata: Metadata = {
+//   title: "Contact | DickSquid Tattoo Studio - Book Your Appoinment Today",
+//   description: "Contact DickSquid Tattoo Studio in Tallinn to book your custom tattoo appointment. Located at 123 StreetName. Call +372 1234 5678 or fill out the contact form.",
+//   openGraph: {
+//     title: "Contact | DickSquid Tattoo Studio",
+//     description: "Get in touch and book your appointment.",
+//     url: "https://bmtattoo.vercel.app/contact"
 
-  }
-}
+//   }
+// }
 
 /**
  *  @todo: api route for inbox
@@ -30,6 +30,59 @@ export const metadata: Metadata = {
  * Image upload/send? (restrictions needed)
  */
 export default function ContactPage() {
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    phone: '',
+    style: '',
+    message: '',
+  });
+   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
+  const [errorMessage, setErrorMessage] = useState('');
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setStatus('loading');
+    setErrorMessage('');
+
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        setStatus('success');
+        setFormData({
+          name: '',
+          email: '',
+          phone: '',
+          style: '',
+          message: '',
+        });
+      } else {
+        setStatus('error');
+        setErrorMessage(data.error || 'Failed to send message');
+      }
+    } catch (error) {
+      setStatus('error');
+      setErrorMessage('An error occurred. Please try again.');
+    }
+  };
+
+
   return (
     <main className={`${AlumniSans.className} bg-zinc-950 min-h-screen pt-24 pb-16`}>
       <div className="container mx-auto px-4 py-12 md:py-20">
@@ -42,7 +95,22 @@ export default function ContactPage() {
             </p>
           </div>
 
-          <form className="space-y-6 bg-zinc-900 p-8 rounded-lg border border-zinc-800">
+          {/* Success Message */}
+          {status === 'success' && (
+            <div className="bg-green-700/20 border border-green-700 text-green-500 px-6 py-4 rounded-lg mb-8 text-center">
+              <p className="font-medium">Message sent successfully! 🎉</p>
+              <p className="text-sm mt-1">We'll get back to you soon.</p>
+            </div>
+          )}
+
+          {/* Error Message */}
+          {status === 'error' && (
+            <div className="bg-red-700/20 border border-red-700 text-red-500 px-6 py-4 rounded-lg mb-8 text-center">
+              <p className="font-medium">{errorMessage}</p>
+            </div>
+          )}
+
+          <form onSubmit={handleSubmit} className="space-y-6 bg-zinc-900 p-8 rounded-lg border border-zinc-800">
             {/* Name Field */}
             <div>
               <label htmlFor="name" className="block text-sm font-medium mb-2 text-zinc-300">
@@ -52,7 +120,10 @@ export default function ContactPage() {
                 type="text"
                 id="name"
                 name="name"
+                value={formData.name}
+                onChange={handleChange}
                 required
+                disabled={status === 'loading'}
                 className="w-full px-4 py-3 bg-zinc-800 border border-zinc-700 rounded-lg text-white placeholder-zinc-500 focus:ring-2 focus:ring-red-700 focus:border-transparent outline-none transition"
                 placeholder="Your name"
               />
@@ -67,7 +138,10 @@ export default function ContactPage() {
                 type="email"
                 id="email"
                 name="email"
+                 value={formData.email}
+                onChange={handleChange}
                 required
+                disabled={status === 'loading'}
                 className="w-full px-4 py-3 bg-zinc-800 border border-zinc-700 rounded-lg text-white placeholder-zinc-500 focus:ring-2 focus:ring-red-700 focus:border-transparent outline-none transition"
                 placeholder="your.email@example.com"
               />
@@ -82,6 +156,9 @@ export default function ContactPage() {
                 type="tel"
                 id="phone"
                 name="phone"
+                value={formData.phone}
+                onChange={handleChange}
+                disabled={status === 'loading'}
                 className="w-full px-4 py-3 bg-zinc-800 border border-zinc-700 rounded-lg text-white placeholder-zinc-500 focus:ring-2 focus:ring-red-700 focus:border-transparent outline-none transition"
                 placeholder="+372 1234 5678"
               />
@@ -95,6 +172,9 @@ export default function ContactPage() {
               <select
                 id="style"
                 name="style"
+                value={formData.style}
+                onChange={handleChange}
+                disabled={status === 'loading'}
                 className="w-full px-4 py-3 bg-zinc-800 border border-zinc-700 rounded-lg text-white focus:ring-2 focus:ring-red-700 focus:border-transparent outline-none transition"
               >
                 <option value="">Select a style</option>
@@ -116,8 +196,11 @@ export default function ContactPage() {
               <textarea
                 id="message"
                 name="message"
+                value={formData.message}
+                onChange={handleChange}
                 required
                 rows={6}
+                disabled={status === 'loading'}
                 className="w-full px-4 py-3 bg-zinc-800 border border-zinc-700 rounded-lg text-white placeholder-zinc-500 focus:ring-2 focus:ring-red-700 focus:border-transparent outline-none transition resize-none"
                 placeholder="Tell us about your tattoo idea, preferred size, placement, etc."
               />
@@ -126,9 +209,10 @@ export default function ContactPage() {
             {/* Submit Button */}
             <button
               type="submit"
+              disabled={status === 'loading'}
               className="w-full bg-red-700 hover:bg-red-800 text-white px-8 py-4 rounded-lg font-medium text-lg transition-all duration-300 transform hover:scale-105"
             >
-              Send Message
+              {status === 'loading' ? 'Sending...' : 'Send Message'}
             </button>
           </form>
 
