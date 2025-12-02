@@ -16,7 +16,10 @@ import "./globals.css";
 export const metadata: Metadata = {
   title: "DickSquid Tattoo Studio",
   description: "DickSquid Tattoo studio by Roland Paabo",
-  metadataBase: new URL('https://bmtattoo.vercel.app')
+  metadataBase: new URL('https://dicksquid.bmtattoo.com'),
+  icons: {
+    icon: '/favicologo.png'
+  }
 }
 
 export default function RootLayout({ 
@@ -27,7 +30,7 @@ export default function RootLayout({
     "@context": "https://schema.org",
     "@type": "TattooShop",
     "name": "BM Tattoo Studio",
-    "image": "https://bmtattoo.vercel.app/og-image.jpg" /** @todo: create and image */,
+    "image": "https://dicksquid.bmtattoo.com/logo.png" /** @todo: create and image */,
     "description": "Professional and Creative custom tattoo artist in Tallin, Estonia",
     "address": {
       "@type": "PostalAddress",

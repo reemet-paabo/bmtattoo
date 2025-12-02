@@ -4,6 +4,7 @@ import { getTattoos } from '@/lib/sanity-queries';
 import { urlFor } from '@/lib/sanity-client';
 
 import { Alumni_Sans_SC } from 'next/font/google';
+import { Suspense } from 'react';
 
 const AlumniSans = Alumni_Sans_SC({
   weight: '500',
@@ -16,15 +17,24 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Portfolio | DickSquid Tattoo Studio",
     description: "Browse portfolio of custom tattoos and artistic designs",
-    url: "https://bmtattoo.vercel.app/portfolio" /** @todo: production domain  */
+    url: "https://dicksquid.bmtattoo.com/portfolio",
   }
 }
 
 export const revalidate = 60; // revalidates every 60 seconds
 
+function PortfolioLoading() {
+  return (
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      {[1, 2, 3, 4, 5, 6].map((i) => (
+        <div key={i} className="aspect-square bg-zinc-800 rounded-lg animate-pulse"/>
+      ))}
+    </div>
+  )
+}
 
-export default async function PortfolioPage() {
- const sanityTattoos = await getTattoos();
+async function PortfolioContent() {
+  const sanityTattoos = await getTattoos();
 
   const tattoos = sanityTattoos.map((tattoo) => ({
     id: tattoo._id,
@@ -32,7 +42,22 @@ export default async function PortfolioPage() {
     style: tattoo.style,
     image: urlFor(tattoo.image).width(800).height(800).url(),
     description: tattoo.description || '',
-  }))
+  }));
+
+  if (tattoos.length === 0) {
+    return (
+        <div className="text-center py-12">
+          <p className="text-zinc-400 text-lg">No tattoos added yet.</p>
+        </div>
+    )
+  }
+ 
+  return <PortfolioGrid tattoos={tattoos} />
+  
+}
+
+export default async function PortfolioPage() {
+ 
 
   return (
     <main className={`${AlumniSans.className} bg-zinc-950 min-h-screen pt-24 pb-16`}>
@@ -44,14 +69,10 @@ export default async function PortfolioPage() {
           Browse the collection of custom tattoo work
         </p>
       </div>
-
-      {tattoos.length === 0 ? (
-        <div className="text-center py-12">
-          <p className="text-zinc-400 text-lg">No tattoos added yet.</p>
-        </div>
-      ) : (
-        <PortfolioGrid tattoos={tattoos} />
-      )}
+        <Suspense fallback={< PortfolioLoading />}>
+          <PortfolioContent />
+        </ Suspense>
+      
       </div>
     </main>
   );
