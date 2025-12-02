@@ -5,7 +5,7 @@ import { cookies } from 'next/headers';
 
 const JWT_SECRET = new TextEncoder().encode(
     /** @todo: JWT_SECRET before prod. */
-    process.env.JWT_SECRET || 'secret-key-change-in-production'
+    process.env.JWT_SECRET || ''
 );
 
 export async function POST(request: NextRequest) {

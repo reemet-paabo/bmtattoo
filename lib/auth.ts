@@ -1,6 +1,5 @@
 import bcrypt from 'bcryptjs';
-/** @todo: credentials.json just temporary solution, until DB is created */
-import credentials from '@/data/credentials.json';
+
 
 export interface LoginCredentials {
     username: string;
@@ -12,18 +11,25 @@ export async function verifyCredentials(
     password: string
 ): Promise<boolean> {
     try {
-        //Check if username exists
-        if(username !== credentials.admin.username) {
+        const validUsername = process.env.ADMIN_USERNAME;
+        const validPasswordHash = process.env.ADMIN_PASSWORD_HASH;
+
+        console.log("validUsername:", validUsername)
+        console.log("validPasswordHash:", validPasswordHash);
+
+        if(!validUsername || !validPasswordHash) {
+            console.error('Admin credentials not configured in environment variables')
             return false;
         }
 
-        // Verify password against hash
-        const isValid = await bcrypt.compare(password, credentials.admin.passwordHash);
-        if(isValid) {
-            console.log('Authentication is Approved!')
+        if(username !== validUsername) {
+            return false;
         }
 
+        const isValid = await bcrypt.compare(password, validPasswordHash);
+
         return isValid;
+
     } catch (error) {
         console.error('Authentication error:', error);
         return false;

@@ -12,11 +12,11 @@ export const metadata: Metadata = {
   openGraph: {
     title: "DickSquid Tattoo Studio - Custom Tattoos in Tallinn",  
     description: "Professional custom renowned artist in Tallinn, known for exceptional craftmanship and color work.",
-    url: "https://bmtattoo.vercel.app", /** @todo: production domain required */
+    url: "https://dicksquid.bmtattoo.com",
     siteName: "DickSquid Tattoo Studio",
     images: [
       {
-        url: "https://bmtattoo.vercel.app/og-image.jpg", /** @todo: logos and images of studio, brand */
+        url: "https://dicksquid.bmtattoo.com",
         width: 1200,
         height: 630,
         alt: "DickSquid Tattoo Studio",
@@ -32,7 +32,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "DickSquid Tattoo Studio - Custom Tattoos in Tallinn",
     description: "Professional custom tattoo artist in Tallinn. Book your appointment today.",
-    images: ["https://bmtattoo.vercel.app/og-image.jpg"]
+    images: ["https://dicksquid.bmtattoo.com/logo.png"]
   },
 };
 

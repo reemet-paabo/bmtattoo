@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react';
-import type { Metadata } from 'next';
+// import type { Metadata } from 'next';
 
 
 import { Alumni_Sans_SC } from 'next/font/google';

@@ -17,7 +17,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "About | DickSquid Tattoo Studio",
     description: "Learn about the artist and the studio in Tallinn",
-    url: "https://bmtattoo.vercel.app/about"
+    url: "https://dicksquid.bmtattoo.com/about"
   }
 };
 
