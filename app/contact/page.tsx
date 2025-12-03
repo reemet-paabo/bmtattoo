@@ -1,18 +1,18 @@
 'use client'
 
 import { useState } from 'react';
-import type { Metadata } from "next";
+// import type { Metadata } from "next";
 import { Alumni_Sans_SC } from 'next/font/google';
 
-export const metadata: Metadata = {
-  title: "Contact | DickSquid Tattoo Studio - Book Your Appointment",
-  description: "Contact DickSquid Tattoo Studio in Tallinn to book your custom tattoo appointment. Get in touch via our contact form or call us directly.",
-  openGraph: {
-    title: "Contact | DickSquid Tattoo Studio",
-    description: "Get in touch to book your custom tattoo appointment in Tallinn.",
-    url: "https://dicksquid.bmtattoo.com/contact",
-  },
-};
+// export const metadata: Metadata = {
+//   title: "Contact | DickSquid Tattoo Studio - Book Your Appointment",
+//   description: "Contact DickSquid Tattoo Studio in Tallinn to book your custom tattoo appointment. Get in touch via our contact form or call us directly.",
+//   openGraph: {
+//     title: "Contact | DickSquid Tattoo Studio",
+//     description: "Get in touch to book your custom tattoo appointment in Tallinn.",
+//     url: "https://dicksquid.bmtattoo.com/contact",
+//   },
+// };
 
 
 const AlumniSans = Alumni_Sans_SC({

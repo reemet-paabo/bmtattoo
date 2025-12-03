@@ -34,7 +34,7 @@ export default function Header() {
                 </Link>
 
                 {/** Desktop Navigation - Hidden on mobile */}
-                <ul className="text-3xl hidden md:flex gap-8">
+                <ul className="text-3/xl hidden md:flex gap-8">
                   <li>
                     <Link href="/" className="hover:text-gray-100 transition">
                       HOME
