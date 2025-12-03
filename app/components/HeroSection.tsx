@@ -70,7 +70,7 @@ export default function HeroSection({ featuredTattoos }: HeroSectionProps) {
                 </video>
 
                 {/** Dark overlay */}
-                <div className="absolute inset-0 bg-black/70" />
+                <div className="absolute inset-0 bg-[#292929f5]/50" />
             </div>
 
             {/* Content */}
@@ -82,13 +82,13 @@ export default function HeroSection({ featuredTattoos }: HeroSectionProps) {
                             
 
                             <Image
-                                src="/logo.png"
+                                src="/updated_logo.png"
                                 alt="BM Tattoo Studio"
                                 width={600}
                                 height={300}
                                 className="w-auto h-64 md:h-120 object-contain"
                                 style={{
-                                    filter: 'drop-shadow(0 0 20px rgba(192, 181, 181, 0.8)) brightness(1.1) contrast(1.3)',
+                                    filter: 'drop-shadow(0 0 20px rgba(224, 217, 217, 0.3)) brightness(1.1) contrast(1.3)',
                                 }}
                                 priority
                             />

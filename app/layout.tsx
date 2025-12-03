@@ -17,6 +17,9 @@ export const metadata: Metadata = {
   title: "DickSquid Tattoo Studio",
   description: "DickSquid Tattoo studio by Roland Paabo",
   metadataBase: new URL('https://dicksquid.bmtattoo.com'),
+  alternates: {
+    canonical: 'https://dicksquid.bmtattoo.com'
+  },
   icons: {
     icon: '/favicologo.png'
   }
@@ -29,7 +32,7 @@ export default function RootLayout({
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "TattooShop",
-    "name": "BM Tattoo Studio",
+    "name": "DickSquid Tattoo Studio",
     "image": "https://dicksquid.bmtattoo.com/logo.png" /** @todo: create and image */,
     "description": "Professional and Creative custom tattoo artist in Tallin, Estonia",
     "address": {

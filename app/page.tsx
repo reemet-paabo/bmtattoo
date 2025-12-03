@@ -91,7 +91,7 @@ export default async function Home() {
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto text-center">
             <h2 className="text-3xl md:text-4xl font-bold mb-6 text-white">
-              Custom Tattoos by Professional Artists
+              Custom tattoos by professional artist
             </h2>
             <div className="w-24 h-1 bg-red-700 mx-auto mb-8" />
             <p className="text-lg text-zinc-300 mb-10 leading-relaxed">
@@ -102,7 +102,7 @@ export default async function Home() {
               href="/about"
               className="inline-block bg-red-700 hover:bg-red-800 text-white px-10 py-4 rounded-lg font-medium text-lg transition-all duration-300 transform hover:scale-105"
             >
-              Learn More About Us
+              Learn More
             </Link>
           </div>
         </div>

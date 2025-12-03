@@ -67,7 +67,7 @@ export default async function Footer() {
                     </div>
                     {/** Quick Links & Social */}
                     <div>
-                        <h3 className="text-xl font-bold mb-4">Follow Us</h3>
+                        <h3 className="text-xl font-bold mb-4">Follow us</h3>
                         <div className="flex gap-4 mb-6">
                             {info.socialMedia?.instagram && (
                             <a
@@ -104,7 +104,7 @@ export default async function Footer() {
                                 About
                             </Link>
                             <Link href="/contact" className="block text-gray-300 hover:text-white transition">
-                                Book Appointment
+                                Book a appointment
                             </Link>
                         </div>
                     </div>

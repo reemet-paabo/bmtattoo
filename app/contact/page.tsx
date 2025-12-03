@@ -1,36 +1,25 @@
 'use client'
 
 import { useState } from 'react';
-// import type { Metadata } from 'next';
-
-
+import type { Metadata } from "next";
 import { Alumni_Sans_SC } from 'next/font/google';
+
+export const metadata: Metadata = {
+  title: "Contact | DickSquid Tattoo Studio - Book Your Appointment",
+  description: "Contact DickSquid Tattoo Studio in Tallinn to book your custom tattoo appointment. Get in touch via our contact form or call us directly.",
+  openGraph: {
+    title: "Contact | DickSquid Tattoo Studio",
+    description: "Get in touch to book your custom tattoo appointment in Tallinn.",
+    url: "https://dicksquid.bmtattoo.com/contact",
+  },
+};
+
 
 const AlumniSans = Alumni_Sans_SC({
   weight: '500',
   subsets: ['latin']
 })
 
-// export const metadata: Metadata = {
-//   title: "Contact | DickSquid Tattoo Studio - Book Your Appoinment Today",
-//   description: "Contact DickSquid Tattoo Studio in Tallinn to book your custom tattoo appointment. Located at 123 StreetName. Call +372 1234 5678 or fill out the contact form.",
-//   openGraph: {
-//     title: "Contact | DickSquid Tattoo Studio",
-//     description: "Get in touch and book your appointment.",
-//     url: "https://bmtattoo.vercel.app/contact"
-
-//   }
-// }
-
-/**
- *  @todo: api route for inbox
- * Placeholder Component.
- * Later steps: Convert to Client Component
- * Handle form submission when API route exists
- * Error handling
- * Select option for [type of appointment] 
- * Image upload/send? (restrictions needed)
- */
 export default function ContactPage() {
   const [formData, setFormData] = useState({
     name: '',
@@ -220,19 +209,15 @@ export default function ContactPage() {
 
           {/* Contact Info Below Form */}
           <div className="mt-12 pt-8 border-t border-zinc-800">
-            <h2 className="text-xl font-bold mb-6 text-white text-center">Other Ways to Reach Me</h2>
+            <h2 className="text-xl font-bold mb-6 text-white text-center">Other ways to reach me</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-zinc-300">
-              <div className="bg-zinc-900 p-4 rounded-lg border border-zinc-800">
-                <p className="font-medium text-white mb-1">📞 Phone</p>
-                <p>+372 1234 5678</p>
-              </div>
               <div className="bg-zinc-900 p-4 rounded-lg border border-zinc-800">
                 <p className="font-medium text-white mb-1">✉️ Email</p>
                 <p>info@bmtattoo.ee</p>
               </div>
               <div className="bg-zinc-900 p-4 rounded-lg border border-zinc-800">
                 <p className="font-medium text-white mb-1">📍 Address</p>
-                <p>123 Tattoo Street, Tallinn</p>
+                <p>Koskla tn 16, Tallinn</p>
               </div>
               <div className="bg-zinc-900 p-4 rounded-lg border border-zinc-800">
                 <p className="font-medium text-white mb-1">🕒 Hours</p>

@@ -134,7 +134,7 @@ export default async function AdminDashboardPage() {
         {/* Management Links */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {/* Portfolio Management */}
-          <div className="bg-zinc-900 border border-zinc-800 rounded-lg p-6">
+          {/* <div className="bg-zinc-900 border border-zinc-800 rounded-lg p-6">
             <div className="flex items-start gap-4">
               <div className="w-12 h-12 bg-red-700/20 rounded-lg flex items-center justify-center flex-shrink-0">
                 <svg className="w-6 h-6 text-red-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -152,7 +152,7 @@ export default async function AdminDashboardPage() {
                 </Link>
               </div>
             </div>
-          </div>
+          </div> */}
 
           {/* Content Management */}
           <div className="bg-zinc-900 border border-zinc-800 rounded-lg p-6">
